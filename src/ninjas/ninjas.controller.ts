@@ -7,13 +7,17 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { NinjasService } from './ninjas.service';
 
 @Controller('ninjas')
 export class NinjasController {
-  // GET /ninjas?type=fast
+  constructor(private readonly ninjasService: NinjasService) {}
+
+  // GET /ninjas?waapon=blade
   @Get()
-  getAllNinjas(@Query('type') type: string) {
-    return [{ type }];
+  getAllNinjas(@Query('weapon') weapon: 'blade' | 'stars') {
+    // const ninjasService = new NinjasService();
+    return this.ninjasService.getNinjas(weapon);
   }
 
   // GET /ninjas/:id
